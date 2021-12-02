@@ -1,4 +1,8 @@
-fun countIncreaseFromPrevious(input: List<Int>): Int {
+package day1
+
+import readInput
+
+private fun countIncreaseFromPrevious(input: List<Int>): Int {
     var count = 0
 
     input.forEachIndexed { index, current ->
@@ -10,7 +14,7 @@ fun countIncreaseFromPrevious(input: List<Int>): Int {
     return count
 }
 
-fun sumForward(input: List<Int>): List<Int> {
+private fun sumForward(input: List<Int>): List<Int> {
     val updated = mutableListOf<Int>()
 
     input.forEachIndexed { index, current ->
@@ -24,5 +28,5 @@ fun main() {
     val input = readInput("Day01")
     val nums = input.map { it.toInt() }
     println(countIncreaseFromPrevious(nums)) // part 1
-    println(countIncreaseFromPrevious(sumForward(nums))) // part 1
+    println(countIncreaseFromPrevious(sumForward(nums))) // part 2
 }
