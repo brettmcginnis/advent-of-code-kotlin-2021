@@ -10,7 +10,13 @@ data class Vector(
     val forward: Int = 0,
 )
 
-private fun List<String>.parse(): Vector {
+data class AimVector(
+    val depth: Int = 0,
+    val forward: Int = 0,
+    val aim: Int = 0
+)
+
+private fun List<String>.partOne(): Vector {
     var vector = Vector()
 
     forEach { d ->
@@ -29,7 +35,29 @@ private fun List<String>.parse(): Vector {
     return vector
 }
 
+private fun List<String>.partTwo(): AimVector {
+    var vector = AimVector()
+
+    forEach { d ->
+        val split = d.split(" ")
+
+        val command = split.getOrNull(0) ?: ""
+        val amount = split.getOrNull(1)?.toInt() ?: 0
+
+        when (command) {
+            "up" -> vector = vector.copy(aim = vector.aim - amount)
+            "down" -> vector = vector.copy(aim = vector.aim + amount)
+            "forward" -> vector = vector.copy(
+                forward = vector.forward + amount,
+                depth = vector.depth + (amount * vector.aim)
+            )
+        }
+    }
+
+    return vector
+}
+
 fun main() {
-    val vector = input.parse()
-    println(vector.forward * (vector.down - vector.up))
+    val vector = input.partTwo()
+    println(vector.forward * vector.depth)
 }
